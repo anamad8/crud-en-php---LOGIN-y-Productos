@@ -82,7 +82,7 @@ function Home() {
 
         })
 
-        history('/ShowProducts')
+        history('/ShowProductsAdmin')
 
     }
 
@@ -100,10 +100,6 @@ function Home() {
                     <div className="col-sm-8">
                         <input type="text" className="form-control" id="name" name="name"
                             value={register.name}  onChange={(e) => handleChange(e)}/>
-                            {/* {fallo ?
-                                <p>{errors}</p> :
-                                <p></p>
-                            } */}
                     </div>
                 </div>
                 <div className="row mb-5">
@@ -111,10 +107,6 @@ function Home() {
                     <div className="col-sm-8">
                         <input type="email" className="form-control" id="email" name="email"
                             value={register.email}  onChange={(e) => handleChange(e)}/>
-                            {/* {fallo ?
-                                <p>{errors}</p> :
-                                <p></p>
-                            } */}
                     </div>
                 </div>
                 <div className="row mb-5">
@@ -122,9 +114,6 @@ function Home() {
                     <div className="col-sm-8">
                         <input type="password" className="form-control" id="inputPassword" name="password" 
                         value= {register.password} onChange={(e) => handleChange(e)}/>
-                        {/* {errors.password && (
-                            <p>{errors.password}</p>
-                        )} */}
                     </div>
                 </div>
                 <fieldset className="row mb-3">
@@ -145,9 +134,6 @@ function Home() {
                             </label>
                         </div>
                     </div>
-                    {/* {errors.admin && (
-                        <p>{errors.admin}</p>
-                    )} */}
                 </fieldset>
                 <button type="submit" className="btn btn-primary">Send</button>
                 {fallo ?

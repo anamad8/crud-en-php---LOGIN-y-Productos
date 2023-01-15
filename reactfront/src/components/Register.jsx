@@ -1,23 +1,38 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 
+const endpoint = 'http://localhost:8000/api/login';
+
 function Register() {
 
-    const [user, setUser] = useState(
-        window.localStorage.getItem([])
-    )
+    const [user, setUser] = useState()
 
     const [register, setRegister] = useState({
-        id:""
+        // id:"",
+        email:"",
+        password:""
     });
+
+    console.log(register.password)
     const[errors, setErrors] = useState({});
 
     const [fallo,setFallo] = useState(false)
 
     const history = useNavigate()
+
+    const getAllUser = async () => {
+        const response = await axios.get(`${endpoint}`)
+        setUser(response.data)
+    }
+
+    useEffect (() => {
+        getAllUser();
+        
+    },[])
+
 
     async function handleChange(e) {
         setRegister({
@@ -26,34 +41,26 @@ function Register() {
         })
     }
 
-    const setLocalStorage = value => {
-        try{
-            window.localStorage.setItem("user", [value])
-        }catch(error){
-            console.log(error)
-        }
-    }
-
     async function handleSubmit(e){
         e.preventDefault();
 
-        // console.log(register)
+        console.log(register.id)
         const url = 'http://localhost:8000/api/login/' 
+        // const anUser = user.find((n) =>(n.id===parseInt(register.id)))
 
-        // console.log(url+register.id )
-        // console.log(url+register.id === ('http://localhost:8000/api/login/17' || 'http://localhost:8000/api/login/14'))
-        
-        if(url+register.id === ('http://localhost:8000/api/login/17' || 'http://localhost:8000/api/login/14')){
-            
-            await axios.get(`${url}${register.id}`)
-            // console.log(url+register.id)
+        const anEmail = user.find((n) =>(n.email===register.email))
 
-            .then(( data ) => {
-                setLocalStorage(data.data)
-                console.log(data.data)
+        console.log(anEmail.role==='admin')
+
+        // if (anUser!==undefined){
+            if(anEmail.role==='admin'){
+                await axios.get(`${url}${register.id}`)
+
+            .then(( {data} ) => {
+                // console.log(data)
             })
             .catch(({ response }) => {
-                console.log(response.data)
+                // console.log(response.data)
             })
 
             Swal.fire({
@@ -63,16 +70,12 @@ function Register() {
                 confirmButtonText: 'OK'
             })
 
-            history('/ShowProducts')
-            setFallo(true)
-            setErrors ('*Is required Id');
-            return;
+            history('/ShowProductsAdmin')
 
-        }else{
-            setFallo(true)
-            setErrors ('*Is required Id');
-            return;
-        }
+            }else{
+                history('/ShowProducts')
+            }
+
     }
 
     return (
@@ -83,7 +86,7 @@ function Register() {
 
             <div className="container">
                 <form className="login" onSubmit= {(e) => handleSubmit(e)}>
-                    <div className="row mb-5">
+                    {/* <div className="row mb-5">
                         <label htmlFor="name" className="col-sm-4 col-form-label">Id</label>
                         <div className="col-sm-8">
                             <input type="number" className="form-control" id="id" name="id"
@@ -92,6 +95,13 @@ function Register() {
                                     <p className='alert alert-danger'>{errors}</p> :
                                     <p></p>
                                 }
+                        </div>
+                    </div> */}
+                    <div className="row mb-5">
+                        <label htmlFor="email" className="col-sm-4 col-form-label">Email</label>
+                        <div className="col-sm-8">
+                            <input type="email" className="form-control" id="email" name="email"
+                                value={register.email}  onChange={(e) => handleChange(e)}/>
                         </div>
                     </div>
                     
