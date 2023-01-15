@@ -11,7 +11,6 @@ function Register() {
     const [user, setUser] = useState()
 
     const [register, setRegister] = useState({
-        // id:"",
         email:"",
         password:""
     });
@@ -46,21 +45,19 @@ function Register() {
 
         console.log(register.id)
         const url = 'http://localhost:8000/api/login/' 
-        // const anUser = user.find((n) =>(n.id===parseInt(register.id)))
 
         const anEmail = user.find((n) =>(n.email===register.email))
 
         console.log(anEmail.role==='admin')
 
-        // if (anUser!==undefined){
             if(anEmail.role==='admin'){
                 await axios.get(`${url}${register.id}`)
 
             .then(( {data} ) => {
-                // console.log(data)
+                console.log(data)
             })
             .catch(({ response }) => {
-                // console.log(response.data)
+                console.log(response.data)
             })
 
             Swal.fire({
@@ -86,17 +83,6 @@ function Register() {
 
             <div className="container">
                 <form className="login" onSubmit= {(e) => handleSubmit(e)}>
-                    {/* <div className="row mb-5">
-                        <label htmlFor="name" className="col-sm-4 col-form-label">Id</label>
-                        <div className="col-sm-8">
-                            <input type="number" className="form-control" id="id" name="id"
-                                value={register.id}  onChange={(e) => handleChange(e)}/>
-                                {fallo ?
-                                    <p className='alert alert-danger'>{errors}</p> :
-                                    <p></p>
-                                }
-                        </div>
-                    </div> */}
                     <div className="row mb-5">
                         <label htmlFor="email" className="col-sm-4 col-form-label">Email</label>
                         <div className="col-sm-8">

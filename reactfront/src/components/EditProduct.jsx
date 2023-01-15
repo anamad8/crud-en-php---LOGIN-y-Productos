@@ -18,7 +18,7 @@ function EditProduct() {
             price: price,
             strock:strock
         } )
-        navigete('/ShowProducts')
+        navigete('/ShowProductsAdmin')
     }
 
     useEffect(() =>{

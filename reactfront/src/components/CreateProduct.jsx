@@ -14,7 +14,7 @@ function CreateProduct() {
     const store = async (e) => {
         e.preventDefault();
         await axios.post(endpoint,{description:description, price:price, strock:strock,})
-        navigete('/ShowProducts')
+        navigete('/ShowProductsAdmin')
     }
 
     return (
